@@ -117,10 +117,6 @@ export function OrderFormBuilder() {
     let y = 20;
     doc.text(`Produit: ${selectedProduct.name}`, 10, y);
     y += 10;
-    doc.text(`Description: ${selectedProduct.description}`, 10, y);
-    y += 10;
-    doc.text(`Prix: ${selectedProduct.price} €`, 10, y);
-    y += 10;
 
     if (selectedOptions.length > 0) {
       doc.text('Options:', 10, y);
