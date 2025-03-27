@@ -76,8 +76,7 @@ export function OrderFormBuilder() {
     }
   }
 
-  const handleCategorySelect = (categoryId: string) => {
-    const category = categories.find(c => c.id === categoryId);
+  const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category || null);
   };
 
@@ -149,19 +148,25 @@ export function OrderFormBuilder() {
               <Tags className="h-5 w-5 text-indigo-500" />
               Sélection de la Catégorie
             </h3>
-            <div className="mt-2">
-              <select
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                onChange={(e) => handleCategorySelect(e.target.value)}
-                value={selectedCategory?.id || ''}
-              >
-                <option value="">Sélectionnez une catégorie</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+            <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {categories.map((category) => (
+                <div
+                  key={category.id}
+                  className="relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                  onClick={() => handleCategorySelect(category)}
+                >
+                  {category.imageUrl && (
+                    <img
+                      src={category.imageUrl}
+                      alt={category.name}
+                      className="w-full h-32 object-cover"
+                    />
+                  )}
+                  <div className="absolute bottom-0 left-0 w-full bg-gray-800 bg-opacity-60 text-white p-2">
+                    <h4 className="text-sm font-medium text-center">{category.name}</h4>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

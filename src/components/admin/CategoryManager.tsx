@@ -6,7 +6,7 @@ import { Category } from '../../types';
 
 export function CategoryManager() {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [newCategory, setNewCategory] = useState({ name: '', attributes: [] });
+  const [newCategory, setNewCategory] = useState({ name: '', attributes: [], imageUrl: '' });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [newAttribute, setNewAttribute] = useState('');
 
@@ -26,7 +26,7 @@ export function CategoryManager() {
   async function handleAddCategory() {
     if (!newCategory.name) return;
     await addDoc(collection(db, 'categories'), newCategory);
-    setNewCategory({ name: '', attributes: [] });
+    setNewCategory({ name: '', attributes: [], imageUrl: '' });
     loadCategories();
   }
 
@@ -39,7 +39,8 @@ export function CategoryManager() {
     if (!category.id) return;
     await updateDoc(doc(db, 'categories', category.id), {
       name: category.name,
-      attributes: category.attributes
+      attributes: category.attributes,
+      imageUrl: category.imageUrl
     });
     setEditingId(null);
     loadCategories();
@@ -59,6 +60,15 @@ export function CategoryManager() {
                 value={newCategory.name}
                 onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                 placeholder="Nom de la catégorie"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                value={newCategory.imageUrl}
+                onChange={(e) => setNewCategory({ ...newCategory, imageUrl: e.target.value })}
+                placeholder="URL de l'image"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -120,18 +130,33 @@ export function CategoryManager() {
               >
                 <div className="flex-1">
                   {editingId === category.id ? (
-                    <input
-                      type="text"
-                      value={category.name}
-                      onChange={(e) =>
-                        setCategories(
-                          categories.map((c) =>
-                            c.id === category.id ? { ...c, name: e.target.value } : c
+                    <div>
+                      <input
+                        type="text"
+                        value={category.name}
+                        onChange={(e) =>
+                          setCategories(
+                            categories.map((c) =>
+                              c.id === category.id ? { ...c, name: e.target.value } : c
+                            )
                           )
-                        )
-                      }
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                    />
+                        }
+                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md mb-2"
+                      />
+                      <input
+                        type="text"
+                        value={category.imageUrl || ''}
+                        onChange={(e) =>
+                          setCategories(
+                            categories.map((c) =>
+                              c.id === category.id ? { ...c, imageUrl: e.target.value } : c
+                            )
+                          )
+                        }
+                        placeholder="URL de l'image"
+                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      />
+                    </div>
                   ) : (
                     <h4 className="text-lg font-medium">{category.name}</h4>
                   )}

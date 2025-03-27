@@ -2,6 +2,7 @@ export interface Category {
   id: string;
   name: string;
   attributes: string[];
+  imageUrl?: string;
 }
 
 export interface Product {
