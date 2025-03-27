@@ -1,6 +1,7 @@
 import React from 'react';
-import { Menu, LogOut } from 'lucide-react';
+import { Menu, LogOut, Package } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { NavLink } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -19,25 +20,26 @@ export function Layout({ children }: LayoutProps) {
                 <Menu className="h-8 w-8 text-gray-900" />
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <a
-                  href="#"
+                <NavLink
+                  to="/"
                   className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                 >
-                  Création de Bon
-                </a>
-                <a
-                  href="#"
+                  DIGIT INVENTORY
+                </NavLink>
+                <NavLink
+                  to="/products"
                   className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                 >
-                  Digit Innovation
-                </a>
+                  <Package className="h-5 w-5 mr-1" />
+                  Produits
+                </NavLink>
                 {isAdmin && (
-                  <a
-                    href="#"
+                  <NavLink
+                    to="/admin"
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
                     Administration
-                  </a>
+                  </NavLink>
                 )}
               </div>
             </div>
