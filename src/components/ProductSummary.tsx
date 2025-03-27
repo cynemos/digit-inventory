@@ -52,8 +52,8 @@ export function ProductSummary() {
             {products
               .filter(product => product.categoryIds.includes(category.id))
               .map(product => (
-                <li key={product.id} className="text-gray-500">
-                  {product.name} - {product.reference}
+                <li key={product.id} className="text-blue-500">
+                  {product.name}
                 </li>
               ))}
           </ul>

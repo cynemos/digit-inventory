@@ -5,7 +5,7 @@ import { AdminLogin } from './components/AdminLogin';
 import { AdminPanel } from './components/AdminPanel';
 import { useAuth } from './contexts/AuthContext';
 import { Lock, FileText, History, Settings } from 'lucide-react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { ProductSummary } from './components/ProductSummary';
 
 function App() {
@@ -55,7 +55,8 @@ function App() {
             {!isAdmin && (
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-                  <button
+                  <Link
+                    to="/"
                     onClick={() => setActiveTab('order')}
                     className={`${
                       activeTab === 'order'
@@ -65,8 +66,9 @@ function App() {
                   >
                     <FileText className="h-5 w-5" />
                     <span>Nouveau Bon de Commande</span>
-                  </button>
-                  <button
+                  </Link>
+                  <Link
+                    to="/"
                     onClick={() => setActiveTab('history')}
                     className={`${
                       activeTab === 'history'
@@ -76,7 +78,7 @@ function App() {
                   >
                     <History className="h-5 w-5" />
                     <span>Historique</span>
-                  </button>
+                  </Link>
                 </nav>
               </div>
             )}
